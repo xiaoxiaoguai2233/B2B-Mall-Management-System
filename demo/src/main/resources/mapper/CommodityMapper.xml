@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.CommodityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Commodity">
+        <id column="id" property="id" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+        <result column="sp" property="sp" />
+        <result column="nw" property="nw" />
+        <result column="rw" property="rw" />
+        <result column="cp" property="cp" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, code, name, sp, nw, rw, cp
+    </sql>
+    <select id="pageC" resultType="com.example.demo.entity.Commodity">
+        select * from Commodity
+    </select>
+    <select id="pageCC" resultType="com.example.demo.entity.Commodity">
+        select * from Commodity ${ew.customSqlSegment}
+    </select>
+</mapper>

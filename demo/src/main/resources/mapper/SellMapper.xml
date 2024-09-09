@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.SellMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Sell">
+        <id column="id" property="id" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, code, name
+    </sql>
+
+    <select id="pageCC" resultType="com.example.demo.entity.SellRes">
+        select DISTINCT c.name laname,c.code lacode
+        FROM commodity c,ladderrule l,rule r
+        where c.code = l.`code` AND (DATE_FORMAT(l.start,"%Y%m")= DATE_FORMAT(NOW(),"%Y%m") OR DATE_FORMAT(l.ending,"%Y%m")= DATE_FORMAT(NOW(),"%Y%m")) OR c.`code`= r.`code` AND (DATE_FORMAT(r.start,"%Y%m")= DATE_FORMAT(NOW(),"%Y%m") OR DATE_FORMAT(r.ending,"%Y%m")= DATE_FORMAT(NOW(),"%Y%m"))
+        ${ew.customSqlSegment}
+    </select>
+</mapper>

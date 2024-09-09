@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.RuleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Rule">
+        <id column="id" property="id" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+        <result column="kind" property="kind" />
+        <result column="origin" property="origin" />
+        <result column="promotional" property="promotional" />
+        <result column="deposit" property="deposit" />
+        <result column="start" property="start" />
+        <result column="ending" property="ending" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, code, name, kind, origin, promotional, deposit, start, ending
+    </sql>
+    <select id="pageCC" resultType="com.example.demo.entity.RuleRes">
+        select r.*,
+        (select c.name from commodity c where c.code=r.code)rulename,
+        (select p.origin from price p where p.code=r.code)ruleorigin
+        from rule r
+        ${ew.customSqlSegment}
+    </select>
+</mapper>
